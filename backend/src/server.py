@@ -4,7 +4,7 @@ from logger import log
 app = Flask(__name__)
 
 
-@app.get('/test')
+@app.get('/api/test')
 def test():
     return {
         'message': 'test'
