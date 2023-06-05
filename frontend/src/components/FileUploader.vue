@@ -1,4 +1,7 @@
 <template>
+    <div class="image-preview-container" v-if="fileUrl !== null">
+        <img class="image-preview" :src="fileUrl"/>
+    </div>
     <input type="file" accept="image/png, image/jpeg" @change="changeFile"/>
     <button :disabled="file === undefined" @click="upload">Prześlij</button>
 </template>
@@ -10,6 +13,7 @@ import axios from 'redaxios';
 @Component
 export default class FileUploader extends Vue {
     file: File | undefined
+    fileUrl: string | null = null
 
     @Emit('get-classification')
     getClassification(cls: string | null): string | null {
@@ -20,10 +24,13 @@ export default class FileUploader extends Vue {
         let input = event.target as HTMLInputElement;
 
         if (!input.files?.length){
+            this.file = undefined
+            this.fileUrl = null
             return;
         }       
 
         this.file = input.files[0];
+        this.fileUrl = URL.createObjectURL(this.file);
     }
 
     async upload(){     
@@ -45,3 +52,17 @@ export default class FileUploader extends Vue {
 }
 
 </script>
+
+<style>
+.image-preview-container{
+    width: 400px;
+    height: 400px;
+}
+
+.image-preview{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+</style>
