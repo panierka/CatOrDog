@@ -4,12 +4,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-facing-decorator';
+import { Component, Emit, Vue } from 'vue-facing-decorator';
 import axios from 'redaxios';
 
 @Component
 export default class FileUploader extends Vue {
     file: File | undefined
+
+    @Emit('get-classification')
+    getClassification(cls: string | null): string | null {
+        return cls;
+    }
 
     async changeFile(event: Event){
         let input = event.target as HTMLInputElement;
@@ -26,8 +31,16 @@ export default class FileUploader extends Vue {
         formData.append('image', this.file!);
 
         axios.post('api/classify', formData)
-        .then(res => console.log(res.data['class']))
-        .catch(_ => console.log('Problem z serwerem.'));
+        .then(res => 
+        {
+            let cls = res.data['class'];
+            this.getClassification(cls);
+            console.log(cls);
+        })
+        .catch(_ => {
+            this.getClassification(null);
+            console.log('Problem z serwerem.');
+        });
     }
 }
 
