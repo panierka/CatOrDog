@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TestFetcher from './components/TestFetcher.vue'
+import CatOrDog from './components/CatOrDog.vue'
 </script>
 
 <template>
-  <TestFetcher/>
+  <CatOrDog/>
 </template>
 
 <style scoped>

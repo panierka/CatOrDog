@@ -10,8 +10,8 @@
   import axios from 'redaxios';
   
   @Component
-  class TestFetcher extends Vue {
-    message: string = '';
+  export default class TestFetcher extends Vue {
+    message: string = '...';
   
     async fetchMessage() {
       await axios.get('api/test').then(res => {
@@ -20,6 +20,4 @@
       }).catch(_ => this.message = 'Problem z przechwyceniem informacji.');
     }
   }
-
-  export default TestFetcher 
 </script>
