@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <TestFetcher/>
+    <h1>Kot czy Pies?</h1>
+
+    <div class="image-classification">
         <FileUploader @get-classification="onClassification"/>
         <p v-if="classificationResult !== null">
             Twoje zwierzę to {{ classificationResult }}
@@ -12,13 +13,11 @@
 </template>
 
 <script lang="ts">
-import TestFetcher from './TestFetcher.vue';
 import FileUploader from './FileUploader.vue';
 import { Component, Vue } from 'vue-facing-decorator';
 
 @Component({
     components: {
-        TestFetcher,
         FileUploader
     }
 })
