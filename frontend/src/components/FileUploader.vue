@@ -57,6 +57,7 @@ export default class FileUploader extends Vue {
 .image-preview-container{
     width: 400px;
     height: 400px;
+    margin: 20px;
 }
 
 .image-preview{
