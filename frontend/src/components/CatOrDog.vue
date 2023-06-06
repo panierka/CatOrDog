@@ -2,7 +2,7 @@
     <h1>Kot czy Pies?</h1>
 
     <div class="image-classification">
-        <FileUploader @get-classification="onClassification"/>
+        <FileUploader @change-classification="onClassification"/>
         <p v-if="classificationResult !== null">
             Twoje zwierzę to {{ classificationResult }}
         </p>

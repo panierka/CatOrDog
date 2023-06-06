@@ -1,6 +1,6 @@
 <template>
     <div class="image-preview-container" v-if="fileUrl !== null">
-        <img class="image-preview" :src="fileUrl"/>
+        <img class="image-preview" :src="fileUrl" draggable="false"/>
     </div>
     <input type="file" accept="image/jpg, image/jpeg" @change="changeFile"/>
     <button :disabled="file === undefined" @click="upload">Prześlij</button>
@@ -15,13 +15,14 @@ export default class FileUploader extends Vue {
     file: File | undefined
     fileUrl: string | null = null
 
-    @Emit('get-classification')
-    getClassification(cls: string | null): string | null {
+    @Emit('change-classification')
+    changeClassification(cls: string | null): string | null {
         return cls;
     }
 
     async changeFile(event: Event){
         let input = event.target as HTMLInputElement;
+        this.changeClassification(null);
 
         if (!input.files?.length){
             this.file = undefined
@@ -41,11 +42,11 @@ export default class FileUploader extends Vue {
         .then(res => 
         {
             let cls = res.data['class'];
-            this.getClassification(cls);
+            this.changeClassification(cls);
             console.log(cls);
         })
         .catch(err => {
-            this.getClassification(null);
+            this.changeClassification(null);
             console.log('Problem z serwerem.');
             console.log(err)
         });
