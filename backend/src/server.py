@@ -1,3 +1,5 @@
+import datetime
+
 from flask import Flask, request, Response
 from clsengine import classify
 from logger import log
@@ -9,7 +11,7 @@ app = Flask(__name__)
 def test():
     log.info('test')
     return {
-        'message': 'test'
+        'message': 'test ' + str(datetime.datetime.now())
     }
 
 
@@ -17,7 +19,7 @@ def test():
 def classify_image():
     image = request.files.get('image')
     log.info('received image "{}" for classification.'.format(image.filename))
-    cls = classify(image)
+    cls = classify(image.stream)
     log.info('image "{}" was classified as "{}"'.format(image.filename, cls))
     return {
         'class': cls

@@ -2,7 +2,7 @@
     <div class="image-preview-container" v-if="fileUrl !== null">
         <img class="image-preview" :src="fileUrl"/>
     </div>
-    <input type="file" accept="image/png, image/jpeg" @change="changeFile"/>
+    <input type="file" accept="image/jpg, image/jpeg" @change="changeFile"/>
     <button :disabled="file === undefined" @click="upload">Prześlij</button>
 </template>
 
@@ -44,9 +44,10 @@ export default class FileUploader extends Vue {
             this.getClassification(cls);
             console.log(cls);
         })
-        .catch(_ => {
+        .catch(err => {
             this.getClassification(null);
             console.log('Problem z serwerem.');
+            console.log(err)
         });
     }
 }

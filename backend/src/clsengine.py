@@ -1,6 +1,5 @@
-from werkzeug.datastructures import FileStorage
-import classifiers.neuralclassifier as clf
+import classifiers.neuralclassifier as cnn
 
 
-def classify(image: FileStorage):
-    return clf.predict(image)
+def classify(image):
+    return cnn.predict(image)
