@@ -1,5 +1,6 @@
-import classifiers.coinflip as coinflip
+from werkzeug.datastructures import FileStorage
+import classifiers.neuralclassifier as clf
 
 
-def classify(image):
-    return coinflip.perform()
+def classify(image: FileStorage):
+    return clf.predict(image)

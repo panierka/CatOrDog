@@ -1,12 +1,13 @@
 from flask import Flask, request, Response
-from logger import log
 from clsengine import classify
+from logger import log
 
 app = Flask(__name__)
 
 
 @app.get('/api/test')
 def test():
+    log.info('test')
     return {
         'message': 'test'
     }

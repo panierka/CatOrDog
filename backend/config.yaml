@@ -1,1 +1,4 @@
-data path: "data/dogs-vs-cats"
+data path: "data"
+model path: "ml/models/keras-seq.h5"
+size x: 128
+size y: 128
