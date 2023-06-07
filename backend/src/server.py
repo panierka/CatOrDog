@@ -19,11 +19,9 @@ def test():
 def classify_image():
     image = request.files.get('image')
     log.info('received image "{}" for classification.'.format(image.filename))
-    cls = classify(image.stream)
-    log.info('image "{}" was classified as "{}"'.format(image.filename, cls))
-    return {
-        'class': cls
-    }
+    results = classify(image.stream)
+    log.info('image "{}" was classified as "{}"'.format(image.filename, results['class']))
+    return results
 
 
 if __name__ == '__main__':

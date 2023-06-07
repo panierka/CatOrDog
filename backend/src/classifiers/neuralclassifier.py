@@ -26,4 +26,7 @@ def predict(image_storage: SpooledTemporaryFile):
     img_array = np.expand_dims(img_array, axis=0)
     predictions = model.predict(img_array)
     score = tf.nn.softmax(predictions[0])
-    return class_names[np.argmax(score)]
+    return {
+        'class': class_names[np.argmax(score)],
+        'confidence': round(100 * np.max(score), 1)
+    }

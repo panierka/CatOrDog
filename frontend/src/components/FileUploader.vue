@@ -1,6 +1,6 @@
 <template>
-    <div class="image-preview-container" v-if="fileUrl !== null">
-        <img class="image-preview" :src="fileUrl" draggable="false"/>
+    <div class="image-preview-container">
+        <img class="image-preview" :src="fileUrl!" draggable="false"/>
     </div>
     <input type="file" accept="image/jpg, image/jpeg" @change="changeFile"/>
     <button :disabled="file === undefined" @click="upload">Prześlij</button>
@@ -9,6 +9,7 @@
 <script lang="ts">
 import { Component, Emit, Vue } from 'vue-facing-decorator';
 import axios from 'redaxios';
+import { ClassificationResult } from '../models/ClassificationResult';
 
 @Component
 export default class FileUploader extends Vue {
@@ -16,8 +17,8 @@ export default class FileUploader extends Vue {
     fileUrl: string | null = null
 
     @Emit('change-classification')
-    changeClassification(cls: string | null): string | null {
-        return cls;
+    changeClassification(data: ClassificationResult | null): ClassificationResult | null {
+        return data;
     }
 
     async changeFile(event: Event){
@@ -41,9 +42,9 @@ export default class FileUploader extends Vue {
         axios.post('api/classify', formData)
         .then(res => 
         {
-            let cls = res.data['class'];
-            this.changeClassification(cls);
-            console.log(cls);
+            let result = new ClassificationResult(res.data['class'], res.data['confidence']);
+            this.changeClassification(result);
+            console.log(result.cls);
         })
         .catch(err => {
             this.changeClassification(null);
@@ -57,6 +58,7 @@ export default class FileUploader extends Vue {
 
 <style>
 .image-preview-container{
+    display: block;
     width: 400px;
     height: 400px;
     margin: 20px;

@@ -2,4 +2,7 @@ import random
 
 
 def perform():
-    return random.choice(['dog', 'cat'])
+    return {
+        'class': random.choice(['dog', 'cat']),
+        'confidence': 50
+    }

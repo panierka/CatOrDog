@@ -1,18 +1,25 @@
 <template>
     <h1>Kot czy Pies?</h1>
 
-    <div class="image-classification">
+    <div class="image-classification well">
         <FileUploader @change-classification="onClassification"/>
-        <p v-if="classificationResult !== null">
-            Twoje zwierzę to {{ classificationResult }}
-        </p>
-        <p v-else>
-            ???
-        </p>
+        <h4>
+            <p v-if="classificationLabel !== null">
+                Twoje zwierzę to {{ classificationLabel }}
+            </p>
+            <p v-else>
+                ???
+            </p>
+
+            <p v-if="classificationConfidence !== null">
+                Pewność: {{ classificationConfidence }}%
+            </p>
+        </h4>
     </div>
 </template>
 
 <script lang="ts">
+import { ClassificationResult } from '../models/ClassificationResult';
 import FileUploader from './FileUploader.vue';
 import { Component, Vue } from 'vue-facing-decorator';
 
@@ -22,11 +29,13 @@ import { Component, Vue } from 'vue-facing-decorator';
     }
 })
 export default class CatOrDog extends Vue {
-    classificationResult: string | null = null;    
+    classificationLabel: string | null = null; 
+    classificationConfidence: number | null = null;   
 
-    onClassification(cls: string | null){
-        if (cls === null){
-            this.classificationResult = null;
+    onClassification(result: ClassificationResult | null){
+        if (result === null){
+            this.classificationLabel = null;
+            this.classificationConfidence = null;
             return;
         }
 
@@ -35,7 +44,8 @@ export default class CatOrDog extends Vue {
             'dog': 'pies'
         }
 
-        this.classificationResult = outputsMap[cls];
+        this.classificationLabel = outputsMap[result.cls];
+        this.classificationConfidence = result.confidence;
     }
 }
 </script>
