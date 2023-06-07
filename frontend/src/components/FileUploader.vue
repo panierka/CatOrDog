@@ -1,9 +1,9 @@
 <template>
     <div class="image-preview-container">
-        <img class="image-preview" :src="fileUrl!" draggable="false"/>
+        <img v-if="fileUrl !== null" class="image-preview" :src="fileUrl!" draggable="false"/>
     </div>
     <input type="file" accept="image/jpg, image/jpeg" @change="changeFile"/>
-    <button :disabled="file === undefined" @click="upload">Prześlij</button>
+    <button class="btn btn-primary btn-large" :disabled="file === undefined" @click="upload">Prześlij</button>
 </template>
 
 <script lang="ts">

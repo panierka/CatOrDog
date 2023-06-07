@@ -78,3 +78,8 @@
       background-color: #f9f9f9;
     }
   }
+
+.image-preview-container{
+  background-color: #1f1f1f;
+  border-radius: 25px;
+}
